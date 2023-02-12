@@ -28,6 +28,8 @@ Services that are read only such as Grafana (but NOT Metabase, Metabase uses Pos
 $ kubectl scale deploy --replicas 0 site metricity metabase bitwarden ...
 ```
 
+Take note of all services scaled down here, as they will need to be scaled back up in step 16.
+
 # Step 3 - Take a database dump and gzip
 
 Using `pg_dumpall`, dump the contents of all databases to a `.sql` file.
@@ -112,10 +114,10 @@ Ensure that all logs are successful, you may get duplicate errors for the `pytho
 
 # Step 16 - Scale up services
 
-Restart the database server 
+Scale back up all services scaled down in step 2.
 
 ```bash
-$ kubectl scale deploy --replicas 1 metricity bitwarden metabase
+$ kubectl scale deploy --replicas 1 site metricity metabase bitwarden
 ```
 
 # Step 17 - Validate all services interact correctly
